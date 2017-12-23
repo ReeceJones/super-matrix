@@ -41,6 +41,34 @@ std::vector<std::string> get_words(std::string str_base)
 	return ret_vec;
 }
 
+int get_smallest(std::vector<int> vec_sort)
+{
+	//something really large
+	int prev_smallest = 44594353450;
+	for (int i : vec_sort)
+	{
+		if (i < prev_smallest)
+			prev_smallest = i;
+	}
+	return prev_smallest;
+}
+
+int get_largest(std::vector<int> vec_sort)
+{
+	int prev_largest = -44594353450;
+	for (int i : vec_sort)
+	{
+		if (i > prev_largest)
+			prev_largest = i;
+	}
+	return prev_largest;
+}
+
+std::vector<int> sort_matrix(std::vector<int> vec_sort)
+{
+	std::cout << get_smallest(vec_sort) << std::endl;
+}
+
 int main()
 {
 	//get the file we are going to read the matrix from
@@ -72,7 +100,28 @@ int main()
 	while (std::getline(in_file, str_in))
 	{
 		vec_file.push_back(str_in);
+		std::cout << str_in << std::endl;
 	}
+
+	std::cout << "Sorted matrix: " << std::endl;
+
+	for (std::string str : vec_file)
+	{
+		std::vector<std::string> vec_words = get_words(str);
+		std::vector<int> vec_numbers;
+		for (std::string str_num : vec_words)
+		{
+			//atoi because stoi is unstable (i always try to use atoi when possible b/c stoi will not want to work sometimes)
+			vec_numbers.push_back(atoi(str_num.c_str()));
+		}
+
+		std::cout << "smallest: " << get_smallest(vec_numbers) << "; largest: " << get_largest(vec_numbers) << std::endl;
+
+		vec_words.clear();
+		vec_numbers.clear();
+	}
+
+
 
 	system("pause");
 }
